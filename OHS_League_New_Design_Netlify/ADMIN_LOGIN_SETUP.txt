@@ -1,0 +1,34 @@
+OHS LEAGUE ADMIN LOGIN
+
+Email: admin@ohsleague.com
+Password: 2026OHS12354
+
+IMPORTANT:
+Create this email/password as a user in Supabase:
+Authentication -> Users -> Add user.
+
+Then run this SQL in Supabase SQL Editor:
+
+insert into public.admin_users (user_id)
+select id from auth.users
+where email = 'admin@ohsleague.com'
+on conflict (user_id) do nothing;
+
+Also make sure app.js contains your real Supabase project URL and publishable/anon key.
+Do NOT put a service_role/secret key in app.js.
+
+
+NETLIFY DEPLOYMENT FIX
+----------------------
+The previous package contained an invalid Supabase key value ('admin') in app.js.
+This package replaces it with:
+YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY
+
+Before deploying:
+1. Open app.js.
+2. Find SUPABASE_KEY.
+3. Replace YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY with your Supabase project's Publishable key (or legacy anon key).
+4. Never use a service_role/secret key in this file.
+5. Deploy the entire folder with index.html at the root.
+
+If Netlify shows a Request ID error during upload, make sure you upload the ZIP itself through Netlify's manual deploy area, or unzip it and drag the folder contents so index.html is directly at the publish root.

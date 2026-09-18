@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin | OHS League</title><link rel="stylesheet" href="style.css"></head><body data-page="admin"><header class="site-header"><div class="nav-wrap">
+<a class="logo" href="index.html"><span class="logo-box">OHS</span><span>LEAGUE</span></a>
+<button class="menu-btn" id="menuToggle">☰</button>
+<nav id="mainNav"><a href="index.html">Home</a><a href="standings.html">Standings</a><a href="fixtures.html">Fixtures</a><a href="results.html">Results</a><a href="teams.html">Clubs</a><a href="players.html">Players</a><a href="trophies.html">Awards</a><a href="news.html">News</a><a class="admin-nav" href="admin.html">Admin</a></nav>
+</div></header><main class="page-main admin-page"><section class="page-hero"><span class="kicker">CONTROL CENTRE</span><h1>ADMIN</h1><p>Manage every part of the league.</p></section><section class="content-section">
+<div id="loginPanel" class="login-card"><span class="kicker">SECURE ACCESS</span><h2>Admin sign in</h2><form id="loginForm" class="form"><input id="adminEmail" type="email" placeholder="Admin email" required><input id="adminPassword" type="password" placeholder="Password" required><button class="btn btn-accent">Sign in</button></form><p id="msg" class="form-message"></p></div>
+<div id="adminPanel" class="hidden"><div style="display:flex;justify-content:flex-end;margin-bottom:16px"><button id="logoutAdmin" type="button" class="btn danger">Log out</button></div><div class="admin-toolbar"><div><span class="kicker">CONTROL CENTRE</span><h2>Dashboard</h2><small id="who">Administrator</small></div><button id="logout" class="btn btn-dark">Sign out</button></div>
+<div class="admin-tabs"><button data-tab="matchAdmin">Matches</button><button data-tab="teamAdmin">Clubs</button><button data-tab="playerAdmin">Players</button><button data-tab="trophyAdmin">Awards</button><button data-tab="newsAdmin">News</button></div>
+<div id="matchAdmin" class="admin-tab"><div class="admin-card"><span class="kicker">MATCH MANAGEMENT</span><h3>Create / edit match</h3><form id="matchForm" class="form two-col"><input id="matchId" type="hidden"><label>Date<input id="matchDate" type="date" required></label><label>Kick-off<input id="matchTime" type="time"></label><label>Home club<select id="homeTeam" required></select></label><label>Away club<select id="awayTeam" required></select></label><label>Status<select id="matchStatus"><option value="Scheduled">Scheduled</option><option value="Played">Played</option></select></label><label>Home score<input id="homeScore" type="number" min="0" value="0"></label><label>Away score<input id="awayScore" type="number" min="0" value="0"></label><label>Venue<input id="matchVenue" placeholder="Venue"></label>
+<div class="goal-events-box"><div class="goal-head"><div><span class="kicker">GOAL EVENTS</span><h4>Scorers & assists</h4></div><button type="button" id="addGoalEvent" class="btn btn-dark small-btn">+ Add goal</button></div><p class="hint">Add one row for every goal: scorer, optional assister and minute.</p><div id="goalEventsContainer"></div></div><button class="btn btn-accent">Save match</button></form></div><div class="admin-card"><h3>Saved matches</h3><div id="matchList"></div></div></div>
+<div id="teamAdmin" class="admin-tab hidden"><div class="admin-card"><span class="kicker">CLUB MANAGEMENT</span><h3>Add / edit club</h3><form id="teamForm" class="form"><input id="teamId" type="hidden"><input id="teamName" placeholder="Club name" required><input id="teamShort" placeholder="Short name"><input id="teamCoach" placeholder="Coach"><input id="teamLogo" type="file" accept="image/*"><button class="btn btn-accent">Save club</button></form></div><div class="admin-card"><div id="teamList"></div></div></div>
+<div id="playerAdmin" class="admin-tab hidden"><div class="admin-card"><span class="kicker">PLAYER MANAGEMENT</span><h3>Add / edit player</h3><form id="playerForm" class="form"><input id="playerId" type="hidden"><input id="playerName" placeholder="Player name" required><select id="playerTeam" required></select><input id="position" placeholder="Position"><input id="number" type="number" min="0" placeholder="Squad number"><input id="playerImage" type="file" accept="image/*"><button class="btn btn-accent">Save player</button></form></div><div class="admin-card"><div id="playerList"></div></div></div>
+<div id="trophyAdmin" class="admin-tab hidden"><div class="admin-card"><span class="kicker">AWARD MANAGEMENT</span><h3>Add / edit award</h3><form id="trophyForm" class="form"><input id="trophyId" type="hidden"><input id="trophyName" placeholder="Award name" required><input id="winner" placeholder="Winner"><input id="season" value="2026" placeholder="Season"><input id="trophyImage" type="file" accept="image/*"><button class="btn btn-accent">Save award</button></form></div><div class="admin-card"><div id="trophyList"></div></div></div>
+<div id="newsAdmin" class="admin-tab hidden"><div class="admin-card"><span class="kicker">NEWS MANAGEMENT</span><h3>Publish news</h3><form id="newsForm" class="form"><input id="newsId" type="hidden"><input id="newsTitle" placeholder="Headline" required><input id="newsDate" type="date" required><textarea id="body" placeholder="Story" required></textarea><input id="newsImage" type="file" accept="image/*"><button class="btn btn-accent">Publish news</button></form></div><div class="admin-card"><div id="newsList"></div></div></div>
+</div></section>
+<section class="panel fixture-tools" style="margin-top:18px">
+  <div class="panel-head">
+    <div><div class="eyebrow">MATCH CENTRE</div><h2>Fixture Management</h2><small>Create fixtures yourself or generate a full season.</small></div>
+  </div>
+  <div style="padding:20px">
+    <div class="admin-card">
+      <div class="eyebrow">AUTOMATIC</div>
+      <h3>⚡ Generate Season Fixtures</h3>
+      <p class="muted">Build a single or home-and-away round robin from the teams already in your database.</p>
+      <div class="form-grid" style="margin:16px 0">
+        <label>First Match Date<input id="genStartDate" type="date"></label>
+        <label>Kickoff Time<input id="genKickoff" type="time"></label>
+        <label>Venue<input id="genVenue" type="text" placeholder="Optional venue"></label>
+        <label>Format<select id="genFormat"><option value="double">Home & Away</option><option value="single">Single Round</option></select></label>
+      </div>
+      <button type="button" class="btn btn-gold btn-3d" onclick="ohsGenerateSeasonFixtures()">⚡ Generate Fixtures</button>
+    </div>
+
+    <div class="admin-card" style="margin-top:16px">
+      <div class="eyebrow">MANUAL</div>
+      <h3>✚ Create Fixture Yourself</h3>
+      <p class="muted">Choose any two teams and set the exact matchday, date, time and venue.</p>
+      <div class="form-grid" style="margin:16px 0">
+        <label>Home Team<select id="manualHomeTeam"></select></label>
+        <label>Away Team<select id="manualAwayTeam"></select></label>
+        <label>Matchday<input id="manualMatchday" type="number" min="1" value="1"></label>
+        <label>Date<input id="manualMatchDate" type="date"></label>
+        <label>Kickoff<input id="manualMatchTime" type="time"></label>
+        <label>Venue<input id="manualVenue" type="text" placeholder="Stadium / venue"></label>
+      </div>
+      <button type="button" class="btn btn-cyan btn-3d" onclick="ohsCreateManualFixture()">✚ Create Fixture</button>
+    </div>
+  </div>
+</section>
+
+</main><footer class="site-footer"><b>OHS LEAGUE</b><span>Season 2026</span></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js"></script></body></html>
